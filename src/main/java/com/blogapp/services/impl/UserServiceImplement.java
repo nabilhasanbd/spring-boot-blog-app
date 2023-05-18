@@ -4,11 +4,13 @@ import com.blogapp.entities.User;
 import com.blogapp.payloads.UserDto;
 import com.blogapp.repositories.UserRepository;
 import com.blogapp.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class UserServiceImplement implements UserService {
 
+    @Autowired
     private UserRepository userRepo;
 
     @Override
