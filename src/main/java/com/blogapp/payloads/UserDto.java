@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class UserDto {
 
+    //we will use only those entity which data we want to transfer
     private int id;
     private String name;
     private String email;
