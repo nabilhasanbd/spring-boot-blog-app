@@ -5,6 +5,7 @@ import com.blogapp.payloads.UserDto;
 import com.blogapp.repositories.UserRepository;
 import com.blogapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.blogapp.exceptions.*;
 
 import java.util.List;
 
@@ -21,7 +22,8 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public UserDto updateUser(UserDto user, Integer userId) {
+    public UserDto updateUser(UserDto userDto, Integer userId) {
+        User user = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user", "id", userId));
         return null;
     }
 
@@ -39,7 +41,8 @@ public class UserServiceImplement implements UserService {
     public void deleteUser(UserDto userId) {
 
     }
-    private User dtoToUser(UserDto userDto){
+
+    private User dtoToUser(UserDto userDto) {
         User user = new User();
         user.setId(userDto.getId());
         user.setName(userDto.getName());
@@ -49,7 +52,7 @@ public class UserServiceImplement implements UserService {
         return user;
     }
 
-    private UserDto userToDto(User user){
+    private UserDto userToDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
         userDto.setName(user.getName());
