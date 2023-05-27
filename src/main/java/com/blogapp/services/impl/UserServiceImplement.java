@@ -14,8 +14,10 @@ public class UserServiceImplement implements UserService {
     private UserRepository userRepo;
 
     @Override
-    public UserDto createUser(UserDto user) {
-        return null;
+    public UserDto createUser(UserDto userDto) {
+        User user = this.dtoToUser(userDto);
+        User savedUser = this.userRepo.save(user);
+        return this.userToDto(savedUser);
     }
 
     @Override
@@ -37,7 +39,7 @@ public class UserServiceImplement implements UserService {
     public void deleteUser(UserDto userId) {
 
     }
-    public User dtoToUser(UserDto userDto){
+    private User dtoToUser(UserDto userDto){
         User user = new User();
         user.setId(userDto.getId());
         user.setName(userDto.getName());
@@ -47,7 +49,7 @@ public class UserServiceImplement implements UserService {
         return user;
     }
 
-    public UserDto userToDto(User user){
+    private UserDto userToDto(User user){
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
         userDto.setName(user.getName());
