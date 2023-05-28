@@ -1,6 +1,5 @@
 package com.blogapp.services;
 
-import com.blogapp.entities.User;
 import com.blogapp.payloads.UserDto;
 
 import java.util.List;

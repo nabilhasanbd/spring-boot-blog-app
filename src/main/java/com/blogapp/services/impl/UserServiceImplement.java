@@ -6,10 +6,12 @@ import com.blogapp.repositories.UserRepository;
 import com.blogapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.blogapp.exceptions.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class UserServiceImplement implements UserService {
 
     @Autowired
