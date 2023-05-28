@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.blogapp.exceptions.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserServiceImplement implements UserService {
 
@@ -35,20 +36,28 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public UserDto getUserById(UserDto userDto, Integer userId) {
-        User user = this.userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User", "id", userId));
+    public UserDto getUserById(Integer userId) {
+        User user = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
         return this.userToDto(user);
-
     }
 
     @Override
     public List<UserDto> getAllUser() {
-        return null;
+        List<User> users = this.userRepo.findAll();
+        List<UserDto> userDtos = users.stream().map(user -> this.userToDto(user)).collect(Collectors.toList());
+//        break down of the previous line
+//        List<UserDto> userDtos = new ArrayList<>();
+//        for (User user : users) {
+//            UserDto userDto = this.userToDto(user);
+//            userDtos.add(userDto);
+//        }
+        return userDtos;
     }
 
     @Override
-    public void deleteUser(UserDto userId) {
-
+    public void deleteUser(Integer userId) {
+        User user = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user", "id", userId));
+        this.userRepo.delete(user);
     }
 
     private User dtoToUser(UserDto userDto) {
